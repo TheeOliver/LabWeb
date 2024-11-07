@@ -1,0 +1,19 @@
+package mk.ukim.finki.labapp.repository;
+
+import mk.ukim.finki.labapp.bootstrap.DataHolder;
+import mk.ukim.finki.labapp.model.Artist;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public class ArtistRepository {
+    public List<Artist> findAll() {
+        return DataHolder.artists;
+    }
+
+    public Artist findById(Long id) { //Problem koga vrakjav Optional
+        return DataHolder.artists.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+    }
+}
