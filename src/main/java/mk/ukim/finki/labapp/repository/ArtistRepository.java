@@ -13,7 +13,7 @@ public class ArtistRepository {
         return DataHolder.artists;
     }
 
-    public Artist findById(Long id) { //Problem koga vrakjav Optional
-        return DataHolder.artists.stream().filter(x->x.getId() == id).findFirst().orElse(null);
+    public Optional<Artist> findById(Long id) { //Problem koga vrakjav Optional
+        return DataHolder.artists.stream().filter(x->x.getId() == id).findFirst();
     }
 }

@@ -1,22 +1,24 @@
-<html xmlns:th="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <title>Song Details</title>
 
 </head>
 <body>
-<!-- dynamically display data -->
-<header>
-   <h1 th:text="${songTitle}"></h1>
-</header>
-<section>
-    <strong> Genre: </strong><th:block th:text="${genre}"></th:block></br>
-    <strong> Release Year: </strong><th:block th:text="${year}"></th:block>
-    <h2>Performers:</h2>
-    <ul th:each="artist : ${artists}">
-        <li th:text="${artist.getFirstName() + ' ' + artist.getLastName()}"></li>
-    </ul>
-</section>
+    <header>
+       <h1 th:text="${songTitle}"></h1>
+    </header>
+
+    <section>
+        <strong> Genre: </strong><th:block th:text="${genre}"></th:block><br>
+        <strong> Release Year: </strong><th:block th:text="${year}"></th:block><br>
+        <strong> Album: </strong><th:block th:text="${album}"></th:block>
+        <h2>Performers:</h2>
+        <ul th:each="artist : ${artists}">
+            <li th:text="${artist.getFirstName() + ' ' + artist.getLastName()}"></li>
+        </ul>
+    </section>
 
 </body>
 </html>
