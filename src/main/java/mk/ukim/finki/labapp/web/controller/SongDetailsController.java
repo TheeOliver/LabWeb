@@ -25,7 +25,7 @@ public class SongDetailsController {
         Song song = songService.findBySongId(id);
         model.addAttribute("songTitle", song.getTitle());
         model.addAttribute("genre", song.getGenre());
-        model.addAttribute("year", song.getGenre());
+        model.addAttribute("year", song.getReleaseYear());
         model.addAttribute("album", song.getAlbum().getName());
         model.addAttribute("artists", song.getPerformers());
         return "songDetails";
