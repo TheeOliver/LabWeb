@@ -19,11 +19,11 @@ public class DataHolder {
     @PostConstruct
     public void init(){
         artists = new ArrayList<>();
-        artists.add(new Artist(37L, "Kiril", "Stefanovski", "Pop diva"));
-        artists.add(new Artist(44L, "Luka", "Mihajlovski", "Raper"));
-        artists.add(new Artist(40L, "Jana", "Angeloska", "Indie guitarist"));
-        artists.add(new Artist(13L, "Rebeka", "Maneva", "Rock band vocalist"));
-        artists.add(new Artist(16L, "Dimitri", "Petrovski", "Jazzzyy"));
+        artists.add(new Artist("Kiril", "Stefanovski", "Pop diva"));
+        artists.add(new Artist("Luka", "Mihajlovski", "Raper"));
+        artists.add(new Artist("Jana", "Angeloska", "Indie guitarist"));
+        artists.add(new Artist("Rebeka", "Maneva", "Rock band vocalist"));
+        artists.add(new Artist("Dimitri", "Petrovski", "Jazzzyy"));
 
         albums = new ArrayList<>();
         albums.add(new Album("sestra", "Hyperpop", "2024"));
@@ -36,7 +36,7 @@ public class DataHolder {
         songs.add(new Song("track1", "39.2", "Hyperpop", 2024, artists.subList(0, 1), albums.get(0)));
         songs.add(new Song("track2", "30 Denari", "Rap", 2019, artists.subList(1, 2), albums.get(1)));
         songs.add(new Song("track3", "Od Jana verzijata", "Pop", 2014, artists.subList(2, 3), albums.get(2)));
-        songs.add(new Song("track4", "Garden of rage", "Metal", 2014, artists.subList(3, 4), albums.get(3)));
+        songs.add(new Song("track4", "Get Jinxed", "Metal", 2014, artists.subList(3, 4), albums.get(3)));
         songs.add(new Song("track5", "Care for another?", "Jazz", 2017, artists.subList(4, 5), albums.get(4)));
     }
 }

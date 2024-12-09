@@ -1,15 +1,14 @@
-package mk.ukim.finki.labapp.repository;
+package mk.ukim.finki.labapp.repository.impl;
 
 import mk.ukim.finki.labapp.bootstrap.DataHolder;
 import mk.ukim.finki.labapp.model.Artist;
 import mk.ukim.finki.labapp.model.Song;
 import org.springframework.stereotype.Repository;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 @Repository
-public class SongRepository {
+public class InMemorySongRepository {
     public List<Song> findAll() {
         return DataHolder.songs;
     }
@@ -32,7 +31,7 @@ public class SongRepository {
     }
 
     public void addArtistToSong(Artist artist, Song song) {
-        findByTrackId(song.getTrackId()).getPerformers().add(artist);
+        findByTrackId(song.getTrackId()).getArtists().add(artist);
     }
 
     public void deleteSong(Long id) {

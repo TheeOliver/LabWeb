@@ -1,15 +1,17 @@
 package mk.ukim.finki.labapp.service.impl;
 
+import jakarta.transaction.Transactional;
 import mk.ukim.finki.labapp.model.Album;
 import mk.ukim.finki.labapp.model.Artist;
 import mk.ukim.finki.labapp.model.Song;
 import mk.ukim.finki.labapp.model.exceptions.InvalidArgumentsException;
 import mk.ukim.finki.labapp.model.exceptions.SongNotFoundException;
-import mk.ukim.finki.labapp.repository.SongRepository;
+import mk.ukim.finki.labapp.repository.jpa.SongRepository;
 import mk.ukim.finki.labapp.service.SongService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SongServiceImpl implements SongService {
@@ -26,8 +28,11 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void addArtistToSong(Artist artist, Song song) { //Zoshto vrakja Artist?
-        songRepository.addArtistToSong(artist, song);
+    public void addArtistToSong(Artist artist, Song song) {
+        List<Artist> artists = song.getArtists();
+        artists.add(artist);
+        song.setArtists(artists);
+        songRepository.save(song);
     }
 
     @Override
@@ -36,15 +41,16 @@ public class SongServiceImpl implements SongService {
     }
 
     public Song findBySongId(Long id) {
-        return songRepository.findBySongId(id);
+        return songRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void deleteById(Long id) {
+    @Transactional
+    public void deleteSongById(Long id) {
         if(id == null) {
             throw new SongNotFoundException(id);
         }
-        songRepository.deleteSong(id);
+        songRepository.deleteById(id);
     }
 
     @Override
@@ -55,7 +61,7 @@ public class SongServiceImpl implements SongService {
             throw new InvalidArgumentsException();
         }
 
-        songRepository.saveSong(new Song(trackId, title, genre, releaseYear, album));
+        songRepository.save(new Song(trackId, title, genre, releaseYear, album));
     }
 
     @Override
@@ -73,6 +79,6 @@ public class SongServiceImpl implements SongService {
         editedSong.setGenre(genre);
         editedSong.setReleaseYear(releaseYear);
         editedSong.setAlbum(album);
-        songRepository.saveSong(editedSong);
+        songRepository.save(editedSong);
     }
 }

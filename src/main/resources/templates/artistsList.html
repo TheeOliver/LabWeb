@@ -33,7 +33,7 @@
 </header>
 <section>
     <h2>Select artist:</h2>
-    <form th:action="@{'/artist-form/add/{id}' (id=${songId})}" th:method="POST">
+    <form th:action="@{'/artist-form/add/{id}' (id=${songId})}" th:method="POST" style="display: inline">
 
         <th:block th:each="artist : ${artists}">
             <label>
@@ -46,6 +46,9 @@
 
         </th:block>
         <button type="submit">Add artist</button>
+    </form>
+    <form th:action="@{'/songs'}" th:method="GET" style="display: inline">
+        <button type="submit">Go back</button>
     </form>
 
 </section>

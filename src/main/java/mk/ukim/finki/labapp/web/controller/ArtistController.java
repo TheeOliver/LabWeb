@@ -21,10 +21,10 @@ public class ArtistController {
     }
 
     @PostMapping
-    public String getAddArtistPage(@RequestParam String selectedSong, Model model) {
+    public String getAddArtistPage(@RequestParam String trackId, Model model) {
         model.addAttribute("artists", artistService.listArtists().stream()
-                .filter(x->!songService.findByTrackId(selectedSong).getPerformers().contains(x)));
-        model.addAttribute("songId", selectedSong);
+                .filter(x->!songService.findByTrackId(trackId).getArtists().contains(x)));
+        model.addAttribute("songId", trackId);
         return "artistsList";
     }
 
@@ -34,7 +34,7 @@ public class ArtistController {
 
         Song song = songService.findByTrackId(id);
         Artist artist = artistService.findById(artistId).orElse(null);
-        songService.addArtistToSong(artist, song);
+        artistService.addSongToArtist(artist, song);
         return "redirect:/song-details/" + song.getId();
     }
 

@@ -23,11 +23,12 @@ public class SongDetailsController {
                                      Model model) {
 
         Song song = songService.findBySongId(id);
+        model.addAttribute("trackId", song.getTrackId());
         model.addAttribute("songTitle", song.getTitle());
         model.addAttribute("genre", song.getGenre());
         model.addAttribute("year", song.getReleaseYear());
         model.addAttribute("album", song.getAlbum().getName());
-        model.addAttribute("artists", song.getPerformers());
+        model.addAttribute("artists", song.getArtists());
         return "songDetails";
     }
 }

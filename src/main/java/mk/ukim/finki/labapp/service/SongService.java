@@ -10,7 +10,7 @@ public interface SongService{
     List<Song> listSongs();
     void addArtistToSong(Artist artist, Song song);
     Song findByTrackId(String trackId);
-    void deleteById(Long id);
+    void deleteSongById(Long id);
     void addNewSong(String title,
                         String trackId,
                         String genre,

@@ -38,7 +38,7 @@ public class ArtistServlet extends HttpServlet {
         WebContext context = new WebContext(webExchange);
         String songId = req.getParameter("songId");
         context.setVariable("artists", artistService.listArtists().stream().filter(x->
-                !songService.findByTrackId(songId).getPerformers().contains(x)).collect(Collectors.toList()));
+                !songService.findByTrackId(songId).getArtists().contains(x)).collect(Collectors.toList()));
         context.setVariable("songId", songId);
         springTemplateEngine.process("artistsList.html",context,resp.getWriter());
     }

@@ -1,6 +1,7 @@
 package mk.ukim.finki.labapp.web.controller;
 
 import mk.ukim.finki.labapp.service.AlbumService;
+import mk.ukim.finki.labapp.service.ArtistService;
 import mk.ukim.finki.labapp.service.SongService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +10,14 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/songs")
 public class SongController {
-    AlbumService albumService;
-    SongService songService;
+    private final AlbumService albumService;
+    private final SongService songService;
+    private final ArtistService artistService;
 
-    public SongController(AlbumService albumService, SongService songService) {
+    public SongController(AlbumService albumService, SongService songService, ArtistService artistService) {
         this.albumService = albumService;
         this.songService = songService;
+        this.artistService = artistService;
     }
 
     @GetMapping
@@ -74,13 +77,14 @@ public class SongController {
         return "add-song";
     }
 
-    @PostMapping("/delete/{id}") //Ovde imav DeletMapping i problemi mi praveshe; zoshto?
+    @PostMapping("/delete/{id}")
     public String deleteSong(@PathVariable Long id) {
         try {
-            songService.deleteById(id);
+            artistService.removeSongFromArtists(id);
+            songService.deleteSongById(id);
         }
         catch (Exception e) {
-            return "redirect:/add-form";
+            return "redirect:/songs";
         }
         return "redirect:/songs";
     }

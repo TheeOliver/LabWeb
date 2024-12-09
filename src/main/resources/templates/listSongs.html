@@ -13,7 +13,7 @@
     <form th:action="@{'/artist-form'}" th:method="POST">
         <th:block th:each="song : ${songs}">
             <label>
-                <input type="radio" name="selectedSong" th:value="${song.getTrackId()}">
+                <input type="radio" name="trackId" th:value="${song.getTrackId()}">
                 Title: <span th:text="${song.getTitle()}"></span>
                 Genre: <span th:text="${song.getGenre()}"></span>
                 Release Year: <span th:text="${song.getReleaseYear()}"></span>
@@ -36,14 +36,14 @@
             <button type="submit">Edit</button>
         </form>
 
-        <form th:action="@{'/songs/delete/{id}' (id=${song.getId()})}" th:method="DELETE" style="display: inline">
+        <form th:action="@{'/songs/delete/{id}' (id=${song.getId()})}" th:method="POST" style="display: inline">
             <button type="submit">Delete</button>
         </form>
         <br>
 
     </th:block><br>
 
-    <form th:action="@{'songs/add-form'}" th:method="GET">
+    <form th:action="@{'/songs/add-form'}" th:method="GET">
         <button type="submit">Add New Song</button>
     </form>
 

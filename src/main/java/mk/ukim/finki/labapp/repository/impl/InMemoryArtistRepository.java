@@ -1,4 +1,4 @@
-package mk.ukim.finki.labapp.repository;
+package mk.ukim.finki.labapp.repository.impl;
 
 import mk.ukim.finki.labapp.bootstrap.DataHolder;
 import mk.ukim.finki.labapp.model.Artist;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ArtistRepository {
+public class InMemoryArtistRepository {
     public List<Artist> findAll() {
         return DataHolder.artists;
     }

@@ -1,7 +1,7 @@
 package mk.ukim.finki.labapp.service.impl;
 
 import mk.ukim.finki.labapp.model.Album;
-import mk.ukim.finki.labapp.repository.AlbumRepository;
+import mk.ukim.finki.labapp.repository.jpa.AlbumRepository;
 import mk.ukim.finki.labapp.service.AlbumService;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class AlbumServiceImpl implements AlbumService {
 
-    AlbumRepository albumRepository;
+    private final AlbumRepository albumRepository;
 
     public AlbumServiceImpl(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
