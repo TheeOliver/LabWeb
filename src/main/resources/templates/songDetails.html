@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" lang="en">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="utf-8">
     <title>Song Details</title>
@@ -19,10 +19,14 @@
             <li th:text="${artist.getFirstName() + ' ' + artist.getLastName()}"></li>
         </ul>
     </section>
-    <form th:action="@{'/artist-form'}" th:method="POST" style="display: inline">
-        <input type="text" th:value="${trackId}" name="trackId" hidden="hidden">
-        <button type="submit">Add another Artist</button>
-    </form>
+
+    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+        <form th:action="@{'/artist-form'}" th:method="POST" style="display: inline">
+            <input type="text" th:value="${trackId}" name="trackId" hidden="hidden">
+            <button type="submit">Add another Artist</button>
+        </form>
+    </th:block>
+
     <form th:action="@{'/songs'}" th:method="GET" style="display: inline">
         <button type="submit">View all songs</button>
     </form>

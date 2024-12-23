@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" lang="en">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="utf-8">
     <title>Oli's Music Store</title>
@@ -10,7 +10,7 @@
 </header>
 <main>
     <h2>Choose a song to add an artist:</h2>
-    <form th:action="@{'/artist-form'}" th:method="POST">
+    <form th:action="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '/artist-form' : 'songs/details'" th:method="POST">
         <th:block th:each="song : ${songs}">
             <label>
                 <input type="radio" name="trackId" th:value="${song.getTrackId()}">
@@ -24,29 +24,30 @@
         <button type="submit">Submit</button>
     </form>
 
+    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
     <h2>Add, edit or delete a song:</h2>
-    <th:block th:each="song : ${songs}">
+        <th:block th:each="song : ${songs}">
 
-        Title: <span th:text="${song.getTitle()}"></span>
-        Genre: <span th:text="${song.getGenre()}"></span>
-        Release Year: <span th:text="${song.getReleaseYear()}"></span>
-        Album : <span th:text="${song.getAlbum().getName()}"></span>
+            Title: <span th:text="${song.getTitle()}"></span>
+            Genre: <span th:text="${song.getGenre()}"></span>
+            Release Year: <span th:text="${song.getReleaseYear()}"></span>
+            Album : <span th:text="${song.getAlbum().getName()}"></span>
 
-        <form th:action="@{'/songs/edit-form/{id}' (id=${song.getId()})}" th:method="GET" style="display: inline">
-            <button type="submit">Edit</button>
+            <form th:action="@{'/songs/edit-form/{id}' (id=${song.getId()})}" th:method="GET" style="display: inline">
+                <button type="submit">Edit</button>
+            </form>
+
+            <form th:action="@{'/songs/delete/{id}' (id=${song.getId()})}" th:method="POST" style="display: inline">
+                <button type="submit">Delete</button>
+            </form>
+            <br>
+
+        </th:block><br>
+
+        <form th:action="@{'/songs/add-form'}" th:method="GET">
+            <button type="submit">Add New Song</button>
         </form>
-
-        <form th:action="@{'/songs/delete/{id}' (id=${song.getId()})}" th:method="POST" style="display: inline">
-            <button type="submit">Delete</button>
-        </form>
-        <br>
-
-    </th:block><br>
-
-    <form th:action="@{'/songs/add-form'}" th:method="GET">
-        <button type="submit">Add New Song</button>
-    </form>
-
+    </th:block>
 
 
 </main>

@@ -10,5 +10,4 @@ import java.util.List;
 public interface SongRepository extends JpaRepository<Song, Long> {
     List<Song> findAllByAlbum_Id(Long albumId);
     Song findByTrackId(String trackId);
-
 }

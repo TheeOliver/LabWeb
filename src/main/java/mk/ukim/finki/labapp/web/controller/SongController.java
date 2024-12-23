@@ -3,6 +3,7 @@ package mk.ukim.finki.labapp.web.controller;
 import mk.ukim.finki.labapp.service.AlbumService;
 import mk.ukim.finki.labapp.service.ArtistService;
 import mk.ukim.finki.labapp.service.SongService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class SongController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public String saveSong(@RequestParam String title,
                            @RequestParam String trackId,
                            @RequestParam String genre,
@@ -46,6 +48,7 @@ public class SongController {
     }
 
     @PostMapping("/edit/{songId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String editSong(@PathVariable Long songId,
                            @RequestParam String title,
                            @RequestParam String trackId,
@@ -64,6 +67,7 @@ public class SongController {
     }
 
     @GetMapping("/edit-form/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getEditSongForm(@PathVariable Long id, Model model) {
         model.addAttribute("albums", albumService.findAll());
         model.addAttribute("song", songService.findBySongId(id));
@@ -72,12 +76,14 @@ public class SongController {
     }
 
     @GetMapping("/add-form")
+    @PreAuthorize("hasRole('ADMIN')")
     public String getAddSongPage(Model model) {
         model.addAttribute("albums", albumService.findAll());
         return "add-song";
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteSong(@PathVariable Long id) {
         try {
             artistService.removeSongFromArtists(id);
@@ -87,5 +93,10 @@ public class SongController {
             return "redirect:/songs";
         }
         return "redirect:/songs";
+    }
+
+    @PostMapping("/details")
+    public String detailsSong(@RequestParam String trackId) {
+         return "redirect:/song-details/" + songService.findByTrackId(trackId).getId();
     }
 }

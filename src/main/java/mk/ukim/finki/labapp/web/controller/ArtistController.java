@@ -4,6 +4,7 @@ import mk.ukim.finki.labapp.model.Artist;
 import mk.ukim.finki.labapp.model.Song;
 import mk.ukim.finki.labapp.service.ArtistService;
 import mk.ukim.finki.labapp.service.SongService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class ArtistController {
     }
 
     @PostMapping("/add/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String addArtist(@PathVariable String id,
                             @RequestParam Long artistId) {
 
