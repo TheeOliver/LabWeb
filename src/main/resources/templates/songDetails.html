@@ -20,7 +20,7 @@
         </ul>
     </section>
 
-    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+    <th:block sec:authorize="hasRole('ADMIN')">
         <form th:action="@{'/artist-form'}" th:method="POST" style="display: inline">
             <input type="text" th:value="${trackId}" name="trackId" hidden="hidden">
             <button type="submit">Add another Artist</button>

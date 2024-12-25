@@ -10,7 +10,7 @@
 </header>
 <main>
     <h2>Choose a song to add an artist:</h2>
-    <form th:action="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ? '/artist-form' : 'songs/details'" th:method="POST">
+    <form th:action="${#authorization.expression('hasRole(''ADMIN'')')} ? '/artist-form' : 'songs/details'" th:method="POST">
         <th:block th:each="song : ${songs}">
             <label>
                 <input type="radio" name="trackId" th:value="${song.getTrackId()}">
@@ -24,7 +24,7 @@
         <button type="submit">Submit</button>
     </form>
 
-    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+    <th:block sec:authorize="hasRole('ADMIN')">
     <h2>Add, edit or delete a song:</h2>
         <th:block th:each="song : ${songs}">
 
